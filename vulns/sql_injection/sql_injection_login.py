@@ -38,6 +38,16 @@ def sql_injection_login_api(request, app):
         logged=user is not None
     )
 
+def another_sql_injection(request, app):
+    form = request.form
+
+    user_input = form.get('input')
+
+    sql = f"SELECT * FROM table WHERE input='{input}'"
+
+    db_result = app.db_helper.execute_read(sql)
+
+    return render_template('home')
 
 def _hash_password(password):
     md5_pass = hashlib.md5(password.encode('utf-8')).hexdigest()
